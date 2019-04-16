@@ -1,9 +1,12 @@
 {
-  "name": "apollo",
-  "version": "0.1.0",
+  "name": "hello-tra-client",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "apollo-boost": "^0.3.1",
+    "graphql": "^14.2.1",
     "react": "^16.8.6",
+    "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-scripts": "2.1.8"
   },
