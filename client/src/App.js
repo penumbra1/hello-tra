@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import styled from "@emotion/styled/macro";
+
+const Header = styled.h1`
+  color: rebeccapurple;
+`;
 
 class App extends Component {
   render() {
-    return <div className="App" />;
+    return <Header>Hi there!</Header>;
   }
 }
 

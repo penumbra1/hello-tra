@@ -4,12 +4,44 @@
     {
       "src": "server/index.js",
       "use": "@now/node-server"
+    },
+    {
+      "src": "client/package.json",
+      "use": "@now/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
   ],
   "routes": [
     {
-      "src": "/.*",
+      "src": "/graphql",
       "dest": "server/index.js"
+    },
+    {
+      "src": "/",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "client/index.html"
+    },
+    {
+      "src": "/static/(.*)",
+      "headers": {
+        "cache-control": "s-maxage=31536000,immutable"
+      },
+      "dest": "client/static/$1"
+    },
+    {
+      "src": "/service-worker.js",
+      "headers": {
+        "cache-control": "s-maxage=0"
+      },
+      "dest": "client/service-worker.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/$1"
     }
   ],
   "env": {
