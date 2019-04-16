@@ -1,5 +1,10 @@
 const nodemailer = require("nodemailer");
 
+const addresses = {
+  from: "hello-tra@tra.ai",
+  to: "penumbral@yandex.ru"
+};
+
 let transporter = null;
 
 const setup = async function setup() {
@@ -17,23 +22,17 @@ const setup = async function setup() {
   });
 };
 
-module.exports = async function sendMail() {
+module.exports = async function sendMail({ subject, html, attachment }) {
   if (!transporter) {
     await setup();
   }
 
   const info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>',
-    to: "bar@example.com, baz@example.com",
-    subject: "Hello ✔",
+    ...addresses,
+    subject,
     text: "Hello world?", // plain text body
-    html: "<b style='color: rebeccapurple'>Hello world?</b>",
-    attachments: [
-      {
-        filename: "CV.pdf",
-        path: "./test.pdf"
-      }
-    ]
+    html,
+    attachments: attachment ? [attachment] : null
   });
 
   console.log("Message sent: %s", info.messageId);

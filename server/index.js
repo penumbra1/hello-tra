@@ -1,21 +1,6 @@
 const express = require("express");
-const { ApolloServer, gql } = require("apollo-server-express");
-const sendMail = require("./mailer");
-
-const typeDefs = gql`
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: async () => {
-      await sendMail();
-      return "Hello world!";
-    }
-  }
-};
+const { ApolloServer } = require("apollo-server-express");
+const { typeDefs, resolvers } = require("./graphql");
 
 const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
