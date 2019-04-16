@@ -1,23 +1,20 @@
 const nodemailer = require("nodemailer");
 
 const addresses = {
-  from: "hello-tra@tra.ai",
-  to: "penumbral@yandex.ru"
+  from: process.env.MAIL_USER,
+  to: process.env.MAIL_RECIPIENT
 };
 
 let transporter = null;
 
 const setup = async function setup() {
-  // Generate test SMTP service account from ethereal.email
-  const testAccount = await nodemailer.createTestAccount();
-
   transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    port: 587,
-    secure: false,
+    host: process.env.MAIL_HOST,
+    port: 465,
+    secure: true,
     auth: {
-      user: testAccount.user, // generated ethereal user
-      pass: testAccount.pass // generated ethereal password
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASSWORD
     }
   });
 };

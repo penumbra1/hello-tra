@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@now/node-server"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "server/index.js"
+    }
+  ],
+  "env": {
+    "MAIL_USER": "@test-email",
+    "MAIL_PASSWORD": "@test-password",
+    "MAIL_HOST": "@test-host",
+    "MAIL_RECIPIENT": "penumbral@yandex.ru"
+  }
+}

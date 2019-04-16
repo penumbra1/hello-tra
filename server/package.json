@@ -1,8 +1,12 @@
 {
-	"dependencies": {
-		"apollo-server-express": "^2.4.8",
-		"express": "^4.16.4",
-		"graphql": "^14.2.1",
-		"nodemailer": "^6.1.0"
-	}
+  "name": "hello-tra",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server-express": "^2.4.8",
+    "express": "^4.16.4",
+    "graphql": "^14.2.1",
+    "nodemailer": "^6.1.0"
+  }
 }
