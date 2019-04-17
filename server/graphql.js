@@ -19,6 +19,7 @@ const typeDefs = gql`
   }
 
   input CityInput {
+    title: String!
     id: String!
   }
 
@@ -27,8 +28,8 @@ const typeDefs = gql`
     phone: String
     city: CityInput!
     job: String!
-    html: String
-    plainText: String!
+    htmlComment: String
+    textComment: String!
     attachment: Upload
   }
 `;
@@ -50,11 +51,27 @@ const resolvers = {
   Mutation: {
     send: async (
       _,
-      { emailData: { name, job, html, plainText, attachment = testFile } }
+      {
+        emailData: {
+          name,
+          phone = "-",
+          city,
+          job,
+          htmlComment,
+          textComment,
+          attachment = testFile
+        }
+      }
     ) => {
-      const subject = `${name} - ${job}`;
-      await sendEmail({ subject, html, plainText, attachment });
-      return `${subject} ${plainText}`;
+      const subject = `${name} - ${job} - ${city.title}`;
+      const contacts = `Phone: ${phone}`;
+      const htmlBody = htmlComment || `<p>${textComment}</p>`;
+      const html = `${htmlBody}<p>${contacts}</p>`;
+      const text = `${textComment}\n${contacts}`;
+
+      await sendEmail({ subject, html, text, attachment });
+
+      return `${subject} ${text}`;
     }
   }
 };

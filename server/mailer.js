@@ -19,7 +19,7 @@ const setup = async function setup() {
   });
 };
 
-module.exports = async function sendMail({ subject, html, attachment }) {
+module.exports = async function sendMail({ subject, text, html, attachment }) {
   if (!transporter) {
     await setup();
   }
@@ -27,15 +27,11 @@ module.exports = async function sendMail({ subject, html, attachment }) {
   const info = await transporter.sendMail({
     ...addresses,
     subject,
-    text: "Hello world?", // plain text body
+    text,
     html,
     attachments: attachment ? [attachment] : null
   });
 
   console.log("Message sent: %s", info.messageId);
   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 };

@@ -12,6 +12,8 @@ const app = express();
 server.applyMiddleware({ app });
 
 const { PORT = 4000 } = process.env;
-app.listen({ port: PORT }, ({ url }) =>
-  console.log(`🚀 Server ready at ${url}`)
+app.listen(
+  { port: PORT },
+  ({ url } = { url: `http://localhost:${PORT}${server.graphqlPath}` }) =>
+    console.log(`🚀 Server ready at ${url}`)
 );
