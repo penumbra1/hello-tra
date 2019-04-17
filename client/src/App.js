@@ -1,14 +1,17 @@
 import React, { Component } from "react";
-import styled from "@emotion/styled/macro";
-
-const Header = styled.h1`
-  color: rebeccapurple;
-`;
+import withTheme from "./theme";
+import Button from "./Button";
+import Input from "./Input";
 
 class App extends Component {
   render() {
-    return <Header>Hi there!</Header>;
+    return (
+      <>
+        <Input />
+        <Button onClick={() => console.log("HI")}>Hi there!</Button>
+      </>
+    );
   }
 }
 
-export default App;
+export default withTheme(App);
