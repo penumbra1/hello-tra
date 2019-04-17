@@ -7,7 +7,12 @@ const Input = styled.input`
   border-radius: 20px;
   border: ${props => `solid 1px rgba(${props.theme.mutedColorRgb}, 0.3)`};
   color: ${props => props.theme.textColor};
+  line-height: 1.41;
   transition: all 0.3s;
+
+  &::placeholder {
+    color: ${props => `rgba(${props.theme.mutedColorRgb}, 0.6)`};
+  }
 
   &:hover,
   &:focus {

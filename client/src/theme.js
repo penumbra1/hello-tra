@@ -27,6 +27,7 @@ const globalStyles = css`
     font-size: 17px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.2px;
     box-sizing: border-box;
   }
 
