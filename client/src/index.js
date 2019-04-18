@@ -5,7 +5,6 @@ import { ApolloProvider } from "react-apollo-hooks";
 import * as serviceWorker from "./serviceWorker";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
 const { createUploadLink } = require("apollo-upload-client");
@@ -21,11 +20,7 @@ const client = new ApolloClient({
         );
       if (networkError) console.log(`[Network error]: ${networkError}`);
     }),
-    new HttpLink({
-      uri: "https://hello-tra.penumbra1.now.sh/graphql",
-      credentials: "same-origin"
-    }),
-    createUploadLink()
+    createUploadLink({ uri: process.env.REACT_APP_GRAPHQL_SERVER })
   ]),
   cache: new InMemoryCache({ addTypename: false })
 });
