@@ -4,6 +4,8 @@ import withTheme from "../theme";
 import Header from "./Header";
 import Footer from "./Footer";
 import Form from "./Form";
+import { useMutation } from "react-apollo-hooks";
+import { SEND_EMAIL } from "../graphql";
 
 const Layout = styled.div`
   display: grid;
@@ -12,18 +14,20 @@ const Layout = styled.div`
   width: 100vw;
 `;
 
-class App extends Component {
-  render() {
-    return (
-      <Layout>
-        <Header />
-        <main>
-          <Form onSubmit={console.log} />
-        </main>
-        <Footer />
-      </Layout>
-    );
-  }
-}
+const App = () => {
+  const sendEmail = useMutation(SEND_EMAIL);
+
+  return (
+    <Layout>
+      <Header />
+      <main>
+        <Form
+          onSubmit={data => sendEmail({ variables: { emailData: data } })}
+        />
+      </main>
+      <Footer />
+    </Layout>
+  );
+};
 
 export default withTheme(App);
