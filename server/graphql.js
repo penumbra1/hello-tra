@@ -26,6 +26,7 @@ const typeDefs = gql`
   input EmailInput {
     name: String!
     phone: String
+    email: String!
     city: CityInput!
     job: String!
     htmlComment: String
@@ -33,11 +34,6 @@ const typeDefs = gql`
     attachment: Upload
   }
 `;
-
-const testFile = {
-  filename: "CV.pdf",
-  path: "./test.pdf"
-};
 
 const resolvers = {
   Query: {
@@ -59,7 +55,7 @@ const resolvers = {
           job,
           htmlComment,
           textComment,
-          attachment = testFile
+          attachment
         }
       }
     ) => {
