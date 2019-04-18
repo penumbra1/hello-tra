@@ -3,15 +3,15 @@ import styled from "@emotion/styled/macro";
 // Adapted from Hamburgers by Jonathan Suh @jonsuh
 // https://github.com/jonsuh/hamburgers
 
-const Hamburger = props => (
-  <button type="button" {...props}>
+const MenuButton = ({ isOpen, ...buttonProps }) => (
+  <button type="button" {...buttonProps}>
     <span>
       <div />
     </span>
   </button>
 );
 
-const MenuButton = styled(Hamburger)`
+export default styled(MenuButton)`
   --padding: 15px;
   --layer-width: 28px;
   --layer-height: 2px;
@@ -33,6 +33,7 @@ const MenuButton = styled(Hamburger)`
   border: 0;
   margin: 0;
   overflow: visible;
+  outline: none;
 
   &:hover,
   &:active {
@@ -78,5 +79,3 @@ const MenuButton = styled(Hamburger)`
     }
   }
 `;
-
-export default MenuButton;

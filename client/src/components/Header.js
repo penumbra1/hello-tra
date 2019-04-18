@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
 import { ReactComponent as SvgLogo } from "./logo.svg";
 import MenuButton from "./MenuButton";
+import List from "./List";
 
 const Logo = styled(SvgLogo)``;
 
@@ -19,10 +20,7 @@ export default styled(Header)`
   display: flex;
   align-items: center;
   justify-content: center;
-
-  ${Logo} {
-    margin: 72px auto;
-  }
+  margin: 48px auto;
 
   ${MenuButton} {
     position: fixed;
