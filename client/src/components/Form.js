@@ -1,87 +1,99 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import { Formik } from "formik";
+import { Formik, withFormik } from "formik";
 import Input from "./Input";
+import Dropdown from "./Dropdown";
 import Button from "./Button";
 import Link from "./Link";
+import { useQuery } from "react-apollo-hooks";
+import { GET_CITIES, GET_JOBS } from "../graphql";
 
-const Form = props => {
+const Form = ({
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  setFieldValue,
+  isSubmitting
+}) => {
+  const cities = useQuery(GET_CITIES);
+  const jobs = useQuery(GET_JOBS, {
+    variables: { city: values.city }
+  });
   return (
-    <Formik
-      initialValues={{ name: "", email: "", phone: "" }}
-      validate={values => {
-        let errors = {};
-        if (!values.email) {
-          errors.email = "Required";
-        } else if (
-          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-        ) {
-          errors.email = "Invalid email address";
-        }
-        return errors;
-      }}
-      onSubmit={(values, { setSubmitting }) => {
-        props.onSubmit(values);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting
-      }) => (
-        <form onSubmit={handleSubmit} {...props}>
-          <h1>Make an impact. Join us.</h1>
-          <Input
-            type="text"
-            name="name"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.name}
-            label="Full name"
-            feedback={errors.name && touched.name && <span>"!!!"</span>}
-          />
-          <Input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-            label="Email"
-          />
-          {errors.email && touched.email && errors.email}
-          <Input
-            type="tel"
-            name="phone"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.phone}
-            label="Phone number"
-          />
-          {errors.phone && touched.phone && errors.phone}
-          <Link as="label" htmlFor="cv">
-            Attach your CV
-          </Link>
-          <input
-            type="file"
-            id="cv"
-            name="cv"
-            className="visually-hidden"
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-          {errors.cv && touched.cv && errors.cv}
-          <Button disabled={isSubmitting}>Submit</Button>
-        </form>
-      )}
-    </Formik>
+    <FormWrapper onSubmit={handleSubmit}>
+      <h1>Make an impact. Join us.</h1>
+      <Dropdown
+        name="city"
+        items={cities.data.cities || []}
+        getItemValue={item => (item ? item.title : "")}
+        onChange={e => setFieldValue("city", e)}
+        onBlur={handleBlur}
+      />
+      <Dropdown
+        name="job"
+        items={jobs.data.jobs || []}
+        onChange={e => setFieldValue("job", e)}
+        onBlur={handleBlur}
+      />
+      <Input
+        type="text"
+        name="name"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.name}
+        label="Full name"
+        error={errors.name && touched.name}
+      />
+      <Input
+        type="email"
+        name="email"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.email}
+        label="Email"
+        error={errors.email && touched.email}
+      />
+      <Input
+        type="tel"
+        name="phone"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.phone}
+        label="Phone number"
+        error={errors.phone && touched.phone}
+      />
+      <Input
+        type="text"
+        name="comment"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        value={values.comment}
+        label="Comment"
+        error={errors.comment && touched.comment}
+      />
+      <Link as="label" htmlFor="cv">
+        Attach your CV
+      </Link>
+      <input
+        type="file"
+        id="cv"
+        name="cv"
+        className="visually-hidden"
+        onChange={e => setFieldValue("file", e.currentTarget.files[0])}
+        onBlur={handleBlur}
+      />
+      {errors.cv && touched.cv && errors.cv}
+      <Button type="submit" disabled={isSubmitting}>
+        Submit
+      </Button>
+    </FormWrapper>
   );
 };
 
-export default styled(Form)`
+const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,7 +111,26 @@ export default styled(Form)`
     margin-bottom: 36px;
   }
 
-  ${Button} {
+  [type="submit"] {
     margin-top: 36px;
   }
 `;
+
+const formikOptions = {
+  validate: values => {
+    let errors = {};
+    if (!values.name) {
+      errors.name = "Required";
+    } else if (!values.email) {
+      errors.email = "Required";
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+      errors.email = "Invalid email address";
+    }
+    return errors;
+  },
+  handleSubmit: (values, { props }) => props.onSubmit(values)
+};
+
+export default props => (
+  <Formik {...formikOptions} component={Form} {...props} />
+);
