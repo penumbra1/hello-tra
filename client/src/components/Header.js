@@ -5,10 +5,20 @@ import MenuButton from "./MenuButton";
 
 const Logo = styled(SvgLogo)``;
 
-const Header = styled.header`
+const Header = props => {
+  const [isMenuOpen, toggleMenu] = useState(false);
+  return (
+    <header {...props}>
+      <Logo />
+      <MenuButton isOpen={isMenuOpen} onClick={() => toggleMenu(!isMenuOpen)} />
+    </header>
+  );
+};
+
+export default styled(Header)`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   ${Logo} {
     margin: 72px auto;
@@ -21,15 +31,3 @@ const Header = styled.header`
     margin: 36px;
   }
 `;
-
-const PageHeader = () => {
-  const [isMenuOpen, toggleMenu] = useState(false);
-  return (
-    <Header>
-      <Logo />
-      <MenuButton isOpen={isMenuOpen} onClick={() => toggleMenu(!isMenuOpen)} />
-    </Header>
-  );
-};
-
-export default PageHeader;

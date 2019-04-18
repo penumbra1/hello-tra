@@ -21,11 +21,21 @@ const globalStyles = css`
     font-stretch: normal;
   }
 
+  @font-face {
+    font-family: "Roobert";
+    src: local("Roobert"),
+      url("./fonts/RoobertTRIAL-SemiBold.otf") format("opentype");
+    font-weight: 600;
+    font-style: normal;
+    font-stretch: normal;
+  }
+
   * {
     font-family: "LabGrotesque", sans-serif;
     font-size: 17px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    line-height: 1.41;
     letter-spacing: 0.2px;
     box-sizing: border-box;
     transition: all 0.15s;

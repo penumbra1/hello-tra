@@ -1,9 +1,11 @@
+import React from "react";
 import styled from "@emotion/styled/macro";
 
-const Input = styled.input`
+const Input = ({ field, ...props }) => <input {...props} aria-label={field} />;
+
+export default styled(Input)`
   width: 366px;
-  height: 42px;
-  padding: 9px 14px;
+  padding: 8px 16px;
   border-radius: 20px;
   border: ${props => `solid 1px rgba(${props.theme.mutedColorRgb}, 0.3)`};
   color: ${props => props.theme.textColor};
@@ -20,5 +22,3 @@ const Input = styled.input`
     border-color: ${props => props.theme.mutedColor};
   }
 `;
-
-export default Input;

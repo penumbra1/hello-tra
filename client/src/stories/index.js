@@ -4,10 +4,16 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { linkTo } from "@storybook/addon-links";
 
-import Button from "../Button";
-import Input from "../Input";
-import PageHeader from "../PageHeader";
-import Dropdown from "../Dropdown";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Button from "../components/Button";
+import Input from "../components/Input";
+import Dropdown from "../components/Dropdown";
+import Form from "../components/Form";
+
+storiesOf("Header", module).add("text", () => <Header />);
+
+storiesOf("Footer", module).add("text", () => <Footer />);
 
 storiesOf("Button", module).add("with text", () => (
   <Button onClick={action("clicked")}>Submit</Button>
@@ -16,8 +22,6 @@ storiesOf("Button", module).add("with text", () => (
 storiesOf("Input", module).add("text", () => (
   <Input placeholder="Full name" onChange={action("changed")} />
 ));
-
-storiesOf("Page header", module).add("text", () => <PageHeader />);
 
 const cities = [
   { title: "London, UK", id: "london" },
@@ -32,4 +36,8 @@ storiesOf("Dropdown", module).add("text", () => (
     onChange={item => action(`selected ${item}`)}
     label="Select a city"
   />
+));
+
+storiesOf("Form", module).add("text", () => (
+  <Form title="Form" onSubmit={action("submitted")} />
 ));

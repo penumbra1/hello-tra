@@ -50,14 +50,25 @@ const DropdownWrapper = styled.div`
   }
 
   li {
-    padding: 12px;
+    padding: 8px 16px;
     transition: opacity 0.15s;
     opacity: ${props => (props.isOpen ? 1 : 0)};
     cursor: default;
+
+    &:last-child {
+      padding-bottom: 16px;
+    }
   }
 `;
 
-const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
+const Dropdown = ({
+  items,
+  onChange,
+  itemToString,
+  getItemValue,
+  field,
+  placeholder
+}) => (
   <Downshift onChange={onChange} itemToString={itemToString}>
     {({
       getRootProps,
@@ -73,9 +84,9 @@ const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
     }) => (
       <DropdownWrapper {...getRootProps({ isOpen: isOpen })}>
         <label {...getLabelProps({ className: "visually-hidden" })}>
-          {label}
+          {field}
         </label>
-        <Input {...getInputProps({ placeholder: label })} />
+        <Input {...getInputProps({ field, placeholder })} />
         <Arrow />
         <ul {...getMenuProps()}>
           {isOpen

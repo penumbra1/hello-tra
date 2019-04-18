@@ -6,7 +6,7 @@ import { ApolloProvider } from "react-apollo-hooks";
 import * as serviceWorker from "./serviceWorker";
 
 const client = new ApolloClient({
-  uri: ""
+  uri: "https://hello-tra.now.sh/graphql"
 });
 
 ReactDOM.render(
