@@ -19,26 +19,9 @@ const setup = async function setup() {
   });
 };
 
-module.exports = async function sendMail({ subject, text, html, attachment }) {
+module.exports = async function sendMail({ subject, text, html, attachments }) {
   if (!transporter) {
     await setup();
-  }
-
-  const attachments = [];
-
-  if (attachment) {
-    const {
-      stream: content,
-      filename,
-      mimetype: contentType,
-      encoding
-    } = await attachment;
-    attachments.push({
-      filename,
-      content,
-      contentType,
-      encoding
-    });
   }
 
   const info = await transporter.sendMail({
