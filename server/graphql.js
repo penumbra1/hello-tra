@@ -25,8 +25,8 @@ const typeDefs = gql`
 
   input EmailInput {
     name: String!
-    phone: String
     email: String!
+    phone: String
     city: CityInput!
     job: String!
     htmlComment: String
@@ -50,7 +50,8 @@ const resolvers = {
       {
         emailData: {
           name,
-          phone = "-",
+          email,
+          phone,
           city,
           job,
           htmlComment,
@@ -60,10 +61,13 @@ const resolvers = {
       }
     ) => {
       const subject = `${name} - ${job} - ${city.title}`;
-      const contacts = `Phone: ${phone}`;
+      const contacts = `Phone: ${phone}
+      Email: ${email}`;
       const htmlBody = htmlComment || `<p>${textComment}</p>`;
       const html = `${htmlBody}<p>${contacts}</p>`;
-      const text = `${textComment}\n${contacts}`;
+      const text = `${textComment}
+      ${contacts}
+      `;
 
       await sendEmail({ subject, html, text, attachment });
 
