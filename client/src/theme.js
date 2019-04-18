@@ -8,8 +8,7 @@ const theme = {
   textColorRgb: "22, 30, 46",
   mutedColor: "#737882",
   mutedColorRgb: "115, 120, 130",
-  backgroundColor: "#ffffff",
-  border: "solid 1px #737882"
+  backgroundColor: "#ffffff"
 };
 
 const globalStyles = css`
@@ -29,11 +28,23 @@ const globalStyles = css`
     -moz-osx-font-smoothing: grayscale;
     letter-spacing: 0.2px;
     box-sizing: border-box;
+    transition: all 0.15s;
   }
 
   body {
     margin: 0;
     padding: 0;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
   }
 `;
 
