@@ -20,7 +20,7 @@ storiesOf("Button", module).add("with text", () => (
 ));
 
 storiesOf("Input", module).add("text", () => (
-  <Input placeholder="Full name" onChange={action("changed")} />
+  <Input label="Full name" onChange={action("changed")} />
 ));
 
 const cities = [
@@ -32,9 +32,10 @@ storiesOf("Dropdown", module).add("text", () => (
   <Dropdown
     items={cities}
     itemToString={item => (item ? item.title : "")}
-    getItemValue={item => item && item.title}
+    getItemValue={item => (item ? item.title : "")}
     onChange={item => action(`selected ${item}`)}
-    label="Select a city"
+    field="city"
+    placeholder="Select a city"
   />
 ));
 

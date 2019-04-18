@@ -8,7 +8,9 @@ const theme = {
   textColorRgb: "22, 30, 46",
   mutedColor: "#737882",
   mutedColorRgb: "115, 120, 130",
-  backgroundColor: "#ffffff"
+  backgroundColor: "#ffffff",
+  errorColor: "#ff1133",
+  errorColorRgb: "255, 17, 51"
 };
 
 const globalStyles = css`

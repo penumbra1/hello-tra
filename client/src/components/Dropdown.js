@@ -7,15 +7,35 @@ import { ReactComponent as SvgArrow } from "./select.svg";
 
 const Arrow = styled(SvgArrow)``;
 
-const DropdownRoot = styled.div`
+const DropdownWrapper = styled.div`
   width: 366px;
   position: relative;
 
   ${Input} {
     ${props =>
-      props.isOpen && `transition: border-color 0s; border-color: transparent;`}
+      props.isOpen &&
+      `transition: border-color 0s; border-color: transparent;`};
+
+
+    &:focus {
+      ${props => !props.isOpen && `transition: border-color 0s;`}
+    }
   }
 
+  ${Arrow} {
+    stroke: ${props =>
+      props.isOpen
+        ? props.theme.mutedColor
+        : `rgba(${props.theme.mutedColorRgb}, 0.3)`};
+    transform: ${props => `rotate(${props.isOpen ? "180deg" : 0})`};
+  }
+
+  /* ${List} {
+    width: 100%;
+    z-index: 1;
+  } */
+
+  /* Border simulator */
   &::after {
     content: "";
     display: block;
@@ -23,28 +43,23 @@ const DropdownRoot = styled.div`
     height: calc(100% - 2px);
     position: absolute;
     top: 0;
-    pointer-events: none;
     border-radius: 20px;
     border: 1px solid;
     border-color: ${props => props.theme.mutedColor};
     opacity: ${props => (props.isOpen ? 1 : 0)};
-  }
-
-  ${Arrow} {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    stroke: ${props =>
-      props.isOpen
-        ? props.theme.mutedColor
-        : `rgba(${props.theme.mutedColorRgb}, 0.3)`};
-    transition: transform 0.1s ease-out, opacity 0.1s linear;
-    transform: ${props => `rotate(${props.isOpen ? "180deg" : 0})`};
+    pointer-events: none;
+    z-index: 2;
   }
 `;
 
-const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
-  <Downshift {...{ onChange, itemToString }}>
+const Dropdown = ({
+  items,
+  onChange,
+  getItemValue = item => item,
+  label,
+  ...props
+}) => (
+  <Downshift onChange={onChange} itemToString={getItemValue}>
     {({
       getRootProps,
       getInputProps,
@@ -57,7 +72,7 @@ const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
       selectedItem,
       theme
     }) => (
-      <DropdownRoot {...getRootProps({ isOpen })}>
+      <DropdownWrapper {...getRootProps({ isOpen, ...props })}>
         <label {...getLabelProps({ className: "visually-hidden" })}>
           {label}
         </label>
@@ -88,7 +103,7 @@ const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
                 ))
             : null}
         </List>
-      </DropdownRoot>
+      </DropdownWrapper>
     )}
   </Downshift>
 );

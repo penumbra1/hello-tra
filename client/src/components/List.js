@@ -6,6 +6,7 @@ export default styled.ul`
   padding: 0;
   transform-origin: top;
   transform: ${props => `scaleY(${props.isOpen ? 1 : 0})`};
+  background: ${props => props.theme.backgroundColor};
 
   li {
     padding: 8px 16px;

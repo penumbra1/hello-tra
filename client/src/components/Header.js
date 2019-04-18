@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
 import { ReactComponent as SvgLogo } from "./logo.svg";
 import MenuButton from "./MenuButton";
-import List from "./List";
 
 const Logo = styled(SvgLogo)``;
 
