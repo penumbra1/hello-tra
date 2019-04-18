@@ -101,7 +101,7 @@ const Dropdown = ({
                     {getItemValue(item)}
                   </li>
                 ))
-            : null}
+            : []}
         </List>
       </DropdownWrapper>
     )}

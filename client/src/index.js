@@ -8,6 +8,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { ApolloLink } from "apollo-link";
+const { createUploadLink } = require("apollo-upload-client");
 
 const client = new ApolloClient({
   link: ApolloLink.from([
@@ -23,7 +24,8 @@ const client = new ApolloClient({
     new HttpLink({
       uri: "https://hello-tra.penumbra1.now.sh/graphql",
       credentials: "same-origin"
-    })
+    }),
+    createUploadLink()
   ]),
   cache: new InMemoryCache({ addTypename: false })
 });

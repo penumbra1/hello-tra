@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import { Formik, withFormik } from "formik";
+import { Formik } from "formik";
 import Input from "./Input";
 import Dropdown from "./Dropdown";
 import Button from "./Button";
@@ -20,7 +20,7 @@ const Form = ({
 }) => {
   const cities = useQuery(GET_CITIES);
   const jobs = useQuery(GET_JOBS, {
-    variables: { city: values.city }
+    variables: { city: values.city || { id: "", title: "" } }
   });
   return (
     <FormWrapper onSubmit={handleSubmit}>
@@ -67,25 +67,30 @@ const Form = ({
       />
       <Input
         type="text"
-        name="comment"
+        name="textComment"
         onChange={handleChange}
         onBlur={handleBlur}
         value={values.comment}
         label="Comment"
         error={errors.comment && touched.comment}
       />
-      <Link as="label" htmlFor="cv">
+      <Link as="label" htmlFor="attachment">
         Attach your CV
       </Link>
       <input
         type="file"
-        id="cv"
-        name="cv"
+        id="attachment"
+        name="attachment"
         className="visually-hidden"
-        onChange={e => setFieldValue("file", e.currentTarget.files[0])}
+        onChange={({
+          target: {
+            validity,
+            files: [file]
+          }
+        }) => validity.valid && setFieldValue("attachment", file)}
         onBlur={handleBlur}
       />
-      {errors.cv && touched.cv && errors.cv}
+      {errors.attachment && touched.attachment && errors.attachment}
       <Button type="submit" disabled={isSubmitting}>
         Submit
       </Button>

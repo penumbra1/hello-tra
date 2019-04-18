@@ -10,6 +10,7 @@
     "apollo-link": "^1.2.11",
     "apollo-link-error": "^1.1.10",
     "apollo-link-http": "^1.5.14",
+    "apollo-upload-client": "^10.0.0",
     "downshift": "^3.2.7",
     "emotion-theming": "^10.0.10",
     "formik": "^1.5.2",
