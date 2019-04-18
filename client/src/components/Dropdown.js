@@ -2,11 +2,12 @@ import React from "react";
 import Downshift from "downshift";
 import styled from "@emotion/styled/macro";
 import Input from "./Input";
+import List from "./List";
 import { ReactComponent as SvgArrow } from "./select.svg";
 
 const Arrow = styled(SvgArrow)``;
 
-const DropdownWrapper = styled.div`
+const DropdownRoot = styled.div`
   width: 366px;
   position: relative;
 
@@ -40,36 +41,10 @@ const DropdownWrapper = styled.div`
     transition: transform 0.1s ease-out, opacity 0.1s linear;
     transform: ${props => `rotate(${props.isOpen ? "180deg" : 0})`};
   }
-
-  ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    transform-origin: top;
-    transform: ${props => `scaleY(${props.isOpen ? 1 : 0})`};
-  }
-
-  li {
-    padding: 8px 16px;
-    transition: opacity 0.15s;
-    opacity: ${props => (props.isOpen ? 1 : 0)};
-    cursor: default;
-
-    &:last-child {
-      padding-bottom: 16px;
-    }
-  }
 `;
 
-const Dropdown = ({
-  items,
-  onChange,
-  itemToString,
-  getItemValue,
-  field,
-  placeholder
-}) => (
-  <Downshift onChange={onChange} itemToString={itemToString}>
+const Dropdown = ({ items, onChange, itemToString, getItemValue, label }) => (
+  <Downshift {...{ onChange, itemToString }}>
     {({
       getRootProps,
       getInputProps,
@@ -82,13 +57,12 @@ const Dropdown = ({
       selectedItem,
       theme
     }) => (
-      <DropdownWrapper {...getRootProps({ isOpen: isOpen })}>
+      <DropdownRoot {...getRootProps({ isOpen })}>
         <label {...getLabelProps({ className: "visually-hidden" })}>
-          {field}
+          {label}
         </label>
-        <Input {...getInputProps({ field, placeholder })} />
-        <Arrow />
-        <ul {...getMenuProps()}>
+        <Input {...getInputProps({ label, extra: <Arrow /> })} />
+        <List {...getMenuProps({ isOpen })}>
           {isOpen
             ? items
                 .filter(
@@ -113,8 +87,8 @@ const Dropdown = ({
                   </li>
                 ))
             : null}
-        </ul>
-      </DropdownWrapper>
+        </List>
+      </DropdownRoot>
     )}
   </Downshift>
 );

@@ -42,8 +42,8 @@ const Form = props => {
             onBlur={handleBlur}
             value={values.name}
             label="Full name"
+            feedback={errors.name && touched.name && <span>"!!!"</span>}
           />
-          {errors.name && touched.name && errors.name}
           <Input
             type="email"
             name="email"
@@ -62,10 +62,19 @@ const Form = props => {
             label="Phone number"
           />
           {errors.phone && touched.phone && errors.phone}
-          <Link as="button">Attach your CV</Link>
-          <Button type="submit" disabled={isSubmitting}>
-            Submit
-          </Button>
+          <Link as="label" htmlFor="cv">
+            Attach your CV
+          </Link>
+          <input
+            type="file"
+            id="cv"
+            name="cv"
+            className="visually-hidden"
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+          {errors.cv && touched.cv && errors.cv}
+          <Button disabled={isSubmitting}>Submit</Button>
         </form>
       )}
     </Formik>
@@ -73,7 +82,6 @@ const Form = props => {
 };
 
 export default styled(Form)`
-  margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -88,5 +96,10 @@ export default styled(Form)`
     font-size: 28px;
     letter-spacing: normal;
     text-align: center;
+    margin-bottom: 36px;
+  }
+
+  ${Button} {
+    margin-top: 36px;
   }
 `;
