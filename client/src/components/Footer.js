@@ -16,7 +16,8 @@ const Footer = props => {
 };
 
 export default styled(Footer)`
-  margin: 36px;
+  margin-top: 48px;
+  margin-bottom: 36px;
 
   * {
     font-size: 13px;

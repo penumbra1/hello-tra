@@ -28,7 +28,7 @@ module.exports = gql`
     city: CityInput!
     job: String!
     htmlComment: String
-    textComment: String!
-    attachment: Upload!
+    textComment: String
+    attachment: Upload
   }
 `;

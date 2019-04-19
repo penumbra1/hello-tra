@@ -40,7 +40,7 @@ const globalStyles = css`
     line-height: 1.41;
     letter-spacing: 0.2px;
     box-sizing: border-box;
-    transition: all 0.15s;
+    transition: all 0.2s;
   }
 
   body {

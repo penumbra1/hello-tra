@@ -10,7 +10,7 @@ export default styled.ul`
 
   li {
     padding: 8px 16px;
-    transition: opacity 0.15s;
+    transition: opacity 0.1s linear;
     opacity: ${props => (props.isOpen ? 0.6 : 0)};
     cursor: default;
 

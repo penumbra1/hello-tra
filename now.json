@@ -48,6 +48,7 @@
     "MAIL_USER": "@test-email",
     "MAIL_PASSWORD": "@test-password",
     "MAIL_HOST": "@test-host",
-    "MAIL_RECIPIENT": "penumbral@yandex.ru"
+    "MAIL_RECIPIENT": "yuriy.andrianov@tra.ai",
+    "REACT_APP_GRAPHQL_SERVER": "/graphql"
   }
 }

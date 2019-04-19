@@ -4,7 +4,14 @@ import styled from "@emotion/styled/macro";
 import css from "@emotion/css/macro";
 import { jsx } from "@emotion/core";
 
-const wrapperStyles = css`
+const Input = ({ label, extra, error, ...props }) => (
+  <div css={inputWrapperStyles}>
+    <input placeholder={label} aria-label={label} {...props} />
+    <div css={extraStyles}>{error ? <ErrorIndicator /> : extra}</div>
+  </div>
+);
+
+const inputWrapperStyles = css`
   position: relative;
 `;
 
@@ -19,37 +26,33 @@ const extraStyles = css`
   transition: transform 0.1s ease-out, opacity 0.1s linear;
 `;
 
-const ErrorIndicator = styled.span`
+export const ErrorIndicator = styled(props => <span {...props}>•</span>)`
   color: ${props => props.theme.errorColor};
+  opacity: 0.9;
 `;
 
-const Input = ({ label, extra, error, ...props }) => (
-  <div css={wrapperStyles}>
-    <input placeholder={label} aria-label={label} {...props} />
-    <div css={extraStyles}>
-      {error ? <ErrorIndicator children="•" /> : extra}
-    </div>
-  </div>
-);
-
-export default styled(Input)`
-  width: 366px;
+export const inputStyles = props => css`
+  width: 100%;
   padding: 8px 16px;
   border-radius: 20px;
-  border: ${props => `solid 1px rgba(${props.theme.mutedColorRgb}, 0.3)`};
+  border: solid 1px rgba(${props.theme.mutedColorRgb}, 0.3);
   outline: none;
-  box-shadow: ${props =>
-    props.error ? `0 0 5px 0 rgba(${props.theme.errorColorRgb}, 0.4)` : "none"};
-  color: ${props => props.theme.textColor};
+  box-shadow: ${props.error
+    ? `0 0 6px 0 rgba(${props.theme.errorColorRgb}, 0.3)`
+    : "none"};
+  color: ${props.theme.textColor};
   line-height: 1.41;
-  transition: all 0.3s;
 
   &:hover,
   &:focus {
-    border-color: ${props => props.theme.mutedColor};
+    border-color: ${props.theme.mutedColor};
   }
 
   &::placeholder {
-    color: ${props => `rgba(${props.theme.mutedColorRgb}, 0.6)`};
+    color: rgba(${props.theme.mutedColorRgb}, 0.6);
   }
+`;
+
+export default styled(Input)`
+  ${inputStyles}
 `;

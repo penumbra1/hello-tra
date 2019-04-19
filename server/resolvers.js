@@ -20,8 +20,8 @@ module.exports = {
           phone,
           city,
           job,
-          htmlComment,
-          textComment,
+          htmlComment = "",
+          textComment = "I left no comment but I like you.",
           attachment
         }
       }
@@ -29,23 +29,19 @@ module.exports = {
       const subject = `${name} - ${job} - ${city.title}`;
       const phoneContact = `Phone: ${phone}`;
       const mailContact = `Email: ${email}`;
+
       const htmlBody = htmlComment || `<p>${textComment}</p>`;
-      const html = `${htmlBody}<p>${phoneContact}</p><p>${mailContact}</p>`;
-      const text = `${textComment}\n${phoneContact}\n${mailContact}`;
-      console.log(attachment);
+      const html = `${htmlBody}${phoneContact &&
+        `<p>${phoneContact}</p>`}${mailContact}</p>`;
+      const text = [textComment, phoneContact, mailContact].join("\n");
+
       const attachments = [];
       if (attachment) {
-        const {
-          stream,
-          filename,
-          mimetype: contentType,
-          encoding
-        } = await attachment;
+        const { createReadStream, filename } = await attachment;
         attachments.push({
           filename,
-          content: stream
+          content: createReadStream()
         });
-        console.log(attachments);
       }
 
       await sendMail({ subject, html, text, attachments });

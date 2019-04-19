@@ -65,7 +65,7 @@ export default styled(MenuButton)`
     &::after {
       content: "";
       display: block;
-      transition: transform 0.08s ease-out, opacity 0s 0.08s linear;
+      transition: transform 0.1s ease-out, opacity 0.1s linear;
     }
 
     &::before {
